@@ -1,0 +1,48 @@
+<!-- client/src/app/app.component.html -->
+<h1>Simple MEAN App</h1>
+
+<!-- Add Book Form -->
+<h2>Add Book</h2>
+<div>
+  <label>Title:</label>
+  <input [(ngModel)]="newBook.title" type="text">
+  <label>Author:</label>
+  <input [(ngModel)]="newBook.author" type="text">
+  <label>Pages:</label>
+  <input [(ngModel)]="newBook.pages" type="number">
+  <button (click)="addBook()">Add Book</button>
+</div>
+<!-- ... Your existing code ... -->
+
+<!-- Edit Form -->
+<div *ngIf="editBookData._id">
+  <h3>Edit Book</h3>
+  <table>
+    <tr>
+      <td>Title:</td>
+      <td><input type="text" [(ngModel)]="editBookData.title" /></td>
+    </tr>
+    <tr>
+      <td>Author:</td>
+      <td><input type="text" [(ngModel)]="editBookData.author" /></td>
+    </tr>
+    <tr>
+      <td>Pages:</td>
+      <td><input type="number" [(ngModel)]="editBookData.pages" /></td>
+    </tr>
+  </table>
+  <button (click)="updateBook()">Update</button>
+  <button (click)="editBookData = {}">Cancel</button>
+</div>
+
+<!-- ... Your existing code ... -->
+
+<!-- Display Books -->
+<h2>Books List</h2>
+<ul>
+  <li *ngFor="let book of books">
+    {{ book.title }} by {{ book.author }} ({{ book.pages }} pages)
+    <button (click)="editBook(book)">Edit</button>
+    <button (click)="deleteBook(book)">Delete</button>
+  </li>
+</ul>
