@@ -1,0 +1,50 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./client
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./client:/app
+    depends_on:
+      - backend
+    networks:
+      - mean-app-network
+
+  backend:
+    build:
+      context: ./server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - ./client/dist/client:/app/dist/client # Add this line to share the dist/client directory
+    depends_on:
+      - database
+    environment:
+      - MONGO_DB_HOST=database
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_USERNAME=root
+      - MONGO_DB_PASSWORD=example
+    networks:
+      - mean-app-network
+
+  database:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mean-app-network
+
+networks:
+  mean-app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
