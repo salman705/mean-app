@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://database:27017/simple_mean_app', {
+//mongoose.connect('mongodb://database:27017/simple_mean_app'
+mongoose.connect('mongodb://localhost:27017/simple_mean_app', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -75,7 +76,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'client', 'index.html'));
 });
 
-const port = 3000;
+const port = 8000;
 app.listen(port, () => {
   console.log(`Server up: http://localhost:${port}`);
 });
